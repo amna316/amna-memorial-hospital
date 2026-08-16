@@ -2,138 +2,588 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b6b6f">
+<meta name="description" content="Amna Memorial Hospital patient information and appointment portal.">
 <title>Amna Memorial Hospital | Patient Portal</title>
+
 <style>
-:root{--primary:#0b6b6f;--secondary:#e9f7f7;--accent:#e8a33a;--dark:#12333a;--white:#fff;--muted:#65777b;--danger:#c62828}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f8f9;color:var(--dark);line-height:1.5}
-header{background:linear-gradient(135deg,#07575b,#0b8584);color:white;padding:22px 16px 28px;position:sticky;top:0;z-index:10;box-shadow:0 3px 15px #0002}
-.header-inner{max-width:900px;margin:auto;display:flex;gap:14px;align-items:center}.logo{width:58px;height:58px;border-radius:16px;background:white;color:var(--primary);display:grid;place-items:center;font-size:25px;font-weight:bold}
-h1{font-size:23px;margin:0}.tag{opacity:.9;font-size:13px}
-nav{max-width:900px;margin:14px auto 0;display:flex;gap:8px;overflow:auto;padding-bottom:2px}nav a{color:white;text-decoration:none;background:#ffffff20;padding:8px 12px;border-radius:20px;white-space:nowrap;font-size:13px}
-main{max-width:900px;margin:auto;padding:16px}.hero{background:linear-gradient(135deg,#fff,#e8f7f7);border-radius:22px;padding:24px;margin-bottom:16px}.hero h2{font-size:28px;margin:0 0 8px}.hero p{margin:6px 0;color:#456}
-.buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.btn{display:block;text-align:center;text-decoration:none;border:0;border-radius:12px;padding:13px 10px;font-weight:bold;cursor:pointer}.wa{background:#1faa59;color:white}.call{background:var(--primary);color:white}.emergency{background:var(--danger);color:white}.map{background:#fff;border:1px solid #d6e2e4;color:var(--dark)}
-section{background:white;border-radius:20px;padding:20px;margin:16px 0;box-shadow:0 2px 14px #12333a12}section h2{margin-top:0;color:var(--primary)}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:var(--secondary);padding:14px;border-radius:14px}.card h3{margin:0 0 5px;font-size:16px}
-label{font-weight:bold;font-size:14px;display:block;margin-top:12px}input,select,textarea{width:100%;padding:12px;margin-top:5px;border:1px solid #ccdadd;border-radius:10px;font:inherit;background:#fff}textarea{min-height:90px;resize:vertical}.submit{width:100%;margin-top:18px;background:#1faa59;color:white;border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:bold;cursor:pointer}
-.notice{background:#fff7e6;border-left:4px solid var(--accent);padding:12px;border-radius:8px;margin-top:12px;font-size:13px}.small{font-size:12px;color:var(--muted)}
-footer{background:#12333a;color:white;text-align:center;padding:24px 16px;margin-top:25px;font-size:13px}
-.qrbox{text-align:center;background:#f7fbfb;padding:16px;border-radius:15px}.qrbox img{max-width:220px;width:100%;height:auto;background:white;padding:8px;border-radius:12px}.download{display:inline-block;margin-top:10px;color:var(--primary);font-weight:bold;text-decoration:none}
-@media(max-width:600px){.cards{grid-template-columns:1fr}.buttons{grid-template-columns:1fr 1fr}.hero h2{font-size:24px}}
+:root{
+  --primary:#0b6b6f;
+  --primary-dark:#07575b;
+  --primary-light:#e8f7f7;
+  --accent:#e8a33a;
+  --dark:#12333a;
+  --muted:#65777b;
+  --white:#fff;
+  --surface:#fff;
+  --bg:#f4f8f9;
+  --border:#d8e4e6;
+  --success:#18864b;
+  --danger:#c62828;
+  --shadow:0 10px 30px rgba(18,51,58,.09);
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:145px}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  line-height:1.6;
+}
+a{color:inherit}
+button,input,select,textarea{font:inherit}
+button,a{ -webkit-tap-highlight-color:transparent }
+
+header{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  color:var(--white);
+  position:sticky;
+  top:0;
+  z-index:50;
+  box-shadow:0 4px 20px rgba(0,0,0,.14);
+}
+.header-inner{
+  max-width:1080px;
+  margin:auto;
+  padding:16px 20px 12px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+.logo{
+  width:58px;
+  height:58px;
+  flex:0 0 58px;
+  border-radius:17px;
+  background:var(--white);
+  color:var(--primary);
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-1px;
+  box-shadow:0 5px 16px rgba(0,0,0,.12);
+}
+h1{font-size:23px;line-height:1.15;margin:0}
+.tag{opacity:.9;font-size:13px;margin-top:4px}
+
+nav{
+  max-width:1080px;
+  margin:auto;
+  padding:0 20px 14px;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none}
+nav a{
+  color:var(--white);
+  text-decoration:none;
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.08);
+  padding:8px 13px;
+  border-radius:999px;
+  white-space:nowrap;
+  font-size:13px;
+  transition:.2s ease;
+}
+nav a:hover,nav a:focus-visible{background:rgba(255,255,255,.24);outline:none}
+
+main{max-width:1080px;margin:auto;padding:24px 20px 8px}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fff 0%,#e8f7f7 100%);
+  border:1px solid #dcebed;
+  border-radius:26px;
+  padding:32px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow);
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  border-radius:50%;
+  background:rgba(11,107,111,.07);
+  right:-70px;top:-75px;
+}
+.hero-content{position:relative;z-index:1;max-width:760px}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  background:#fff;
+  color:var(--primary);
+  border:1px solid #d8e8e9;
+  border-radius:999px;
+  padding:6px 11px;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+.hero h2{font-size:clamp(27px,4vw,38px);line-height:1.15;margin:0 0 10px}
+.hero p{margin:7px 0;color:#456}
+.hero .lead{font-size:16px;max-width:680px}
+.buttons{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:22px;
+}
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  text-align:center;
+  text-decoration:none;
+  border:0;
+  border-radius:13px;
+  padding:12px 10px;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+.btn:hover{transform:translateY(-1px);filter:brightness(.98);box-shadow:0 7px 18px rgba(0,0,0,.1)}
+.btn:focus-visible{outline:3px solid rgba(232,163,58,.55);outline-offset:2px}
+.wa{background:#1faa59;color:#fff}
+.call{background:var(--primary);color:#fff}
+.emergency{background:var(--danger);color:#fff}
+.map{background:#fff;border:1px solid var(--border);color:var(--dark)}
+
+.quick-info{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:0 0 20px;
+}
+.info-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:15px 16px;
+  box-shadow:0 4px 15px rgba(18,51,58,.05);
+}
+.info-card strong{display:block;color:var(--primary);font-size:14px}
+.info-card span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+
+section{
+  background:var(--surface);
+  border:1px solid #e0eaec;
+  border-radius:var(--radius);
+  padding:24px;
+  margin:20px 0;
+  box-shadow:var(--shadow);
+}
+section h2{margin:0 0 16px;color:var(--primary);font-size:23px}
+.section-intro{color:var(--muted);margin:-7px 0 17px}
+
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.card{
+  background:var(--primary-light);
+  border:1px solid #d9eded;
+  padding:17px;
+  border-radius:16px;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(11,107,111,.08)}
+.card h3{margin:0 0 5px;font-size:16px}
+.card div{font-size:13px;color:#4d666a}
+
+.doctor-card{background:#f7fbfb}
+.doctor-icon{
+  width:42px;height:42px;border-radius:50%;
+  background:#dff1f1;color:var(--primary);
+  display:grid;place-items:center;
+  font-size:20px;margin-bottom:10px;
+}
+
+form{max-width:820px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.full{grid-column:1/-1}
+label{font-weight:700;font-size:13px;display:block;margin-top:13px}
+input,select,textarea{
+  width:100%;
+  padding:12px 13px;
+  margin-top:6px;
+  border:1px solid #cbdadd;
+  border-radius:11px;
+  font:inherit;
+  background:#fff;
+  color:var(--dark);
+  transition:border-color .18s,box-shadow .18s;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--primary);
+  outline:none;
+  box-shadow:0 0 0 3px rgba(11,107,111,.11);
+}
+textarea{min-height:100px;resize:vertical}
+.submit{
+  width:100%;
+  margin-top:18px;
+  background:#1faa59;
+  color:#fff;
+  border:0;
+  border-radius:12px;
+  padding:14px;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+}
+.submit:hover{filter:brightness(.96)}
+.notice{
+  background:#fff7e6;
+  border-left:4px solid var(--accent);
+  padding:12px 13px;
+  border-radius:8px;
+  margin-top:14px;
+  font-size:13px;
+}
+.small{font-size:12px;color:var(--muted)}
+
+.qrbox{
+  text-align:center;
+  background:#f7fbfb;
+  border:1px dashed #cbdfe1;
+  padding:20px;
+  border-radius:17px;
+}
+.qrbox img{
+  max-width:220px;width:100%;height:auto;
+  background:white;padding:8px;border-radius:12px;
+  border:1px solid var(--border);
+}
+.download{
+  display:inline-block;
+  margin-top:10px;
+  color:var(--primary);
+  font-weight:800;
+  text-decoration:none;
+}
+.download:hover{text-decoration:underline}
+
+footer{
+  background:var(--dark);
+  color:white;
+  text-align:center;
+  padding:28px 20px;
+  margin-top:28px;
+  font-size:13px;
+}
+.footer-title{font-size:16px;margin-bottom:5px}
+.footer-links{margin-top:12px}
+.footer-links a{color:#d7eeee;text-decoration:none;margin:0 7px}
+.footer-links a:hover{text-decoration:underline}
+
+.back-top{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:42px;height:42px;
+  border:0;border-radius:50%;
+  background:var(--primary);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.18);
+  opacity:0;pointer-events:none;
+  transition:.2s ease;
+  z-index:40;
+}
+.back-top.show{opacity:1;pointer-events:auto}
+
+@media(max-width:900px){
+  .buttons{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+  html{scroll-padding-top:130px}
+  .header-inner{padding:13px 14px 10px}
+  .logo{width:50px;height:50px;flex-basis:50px;border-radius:14px;font-size:19px}
+  h1{font-size:19px}
+  .tag{font-size:12px}
+  nav{padding:0 14px 12px}
+  main{padding:16px 12px 4px}
+  .hero{padding:23px 18px;border-radius:20px}
+  .hero h2{font-size:27px}
+  .hero .lead{font-size:15px}
+  .quick-info{grid-template-columns:1fr}
+  section{padding:19px 16px;border-radius:18px}
+  section h2{font-size:21px}
+  .cards{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+}
+@media(max-width:420px){
+  .buttons{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{transition:none!important}
+}
 </style>
 </head>
+
 <body>
 <header>
   <div class="header-inner">
-    <div class="logo">AMH</div>
-    <div><h1>Amna Memorial Hospital</h1><div class="tag">Patient Information & Appointment Portal</div></div>
+    <div class="logo" aria-label="Amna Memorial Hospital">AMH</div>
+    <div>
+      <h1>Amna Memorial Hospital</h1>
+      <div class="tag">Patient Information &amp; Appointment Portal</div>
+    </div>
   </div>
-  <nav>
-    <a href="#home">Home</a><a href="#services">Services</a><a href="#doctors">Doctors</a><a href="#appointment">Appointment</a><a href="#qr">QR Code</a>
+  <nav aria-label="Main navigation">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#appointment">Appointment</a>
+    <a href="#qr">QR Code</a>
   </nav>
 </header>
 
 <main>
-<section id="home" class="hero">
-  <h2>आपकी सेहत, हमारी जिम्मेदारी</h2>
-  <p><b>Compassion • Care • Commitment</b></p>
-  <p>Patient information, doctor details और appointment booking एक ही जगह।</p>
-  <div class="buttons">
-    <a class="btn wa" href="https://wa.me/918051246461?text=Namaste%20Amna%20Memorial%20Hospital%2C%20mujhe%20appointment%20book%20karna%20hai." target="_blank">📲 WhatsApp</a>
-    <a class="btn call" href="tel:+918051246461">📞 Call Hospital</a>
-    <a class="btn emergency" href="tel:+918051246461">🚑 Emergency</a>
-    <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=Amna%20Memorial%20Hospital%2C%20Bangaon%20Road%2C%20Saharsa%2C%20Bihar%20852201" target="_blank">📍 Directions</a>
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">🏥 Patient Portal</div>
+      <h2>आपकी सेहत, हमारी जिम्मेदारी</h2>
+      <p><b>Compassion • Care • Commitment</b></p>
+      <p class="lead">Patient information, doctor details और appointment booking — एक ही जगह।</p>
+
+      <div class="buttons">
+        <a class="btn wa" href="https://wa.me/918051246461?text=Namaste%20Amna%20Memorial%20Hospital%2C%20mujhe%20appointment%20book%20karna%20hai." target="_blank" rel="noopener">📲 WhatsApp</a>
+        <a class="btn call" href="tel:+918051246461">📞 Call Hospital</a>
+        <a class="btn emergency" href="tel:+918051246461">🚑 Emergency</a>
+        <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=Amna%20Memorial%20Hospital%2C%20Bangaon%20Road%2C%20Saharsa%2C%20Bihar%20852201" target="_blank" rel="noopener">📍 Directions</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="quick-info" aria-label="Hospital contact information">
+    <div class="info-card"><strong>📞 Hospital</strong><span>+91 80512 46461</span></div>
+    <div class="info-card"><strong>📍 Location</strong><span>Bangaon Road, Saharsa, Bihar</span></div>
+    <div class="info-card"><strong>💬 Appointment</strong><span>Send your request on WhatsApp</span></div>
   </div>
-</section>
 
-<section id="services">
-<h2>🏥 Services | हमारी सेवाएँ</h2>
-<div class="cards">
-<div class="card"><h3>ICU</h3><div>Intensive Care Unit</div></div>
-<div class="card"><h3>NICU</h3><div>Newborn Care</div></div>
-<div class="card"><h3>Trauma Care</h3><div>Emergency & Trauma Services</div></div>
-<div class="card"><h3>CT Scan</h3><div>Advanced Imaging</div></div>
-<div class="card"><h3>Digital X-Ray</h3><div>Digital Radiology</div></div>
-<div class="card"><h3>Pathology</h3><div>Laboratory Services</div></div>
-<div class="card"><h3>Laparoscopic Surgery</h3><div>Minimally Invasive Surgery</div></div>
-<div class="card"><h3>Laser Treatment</h3><div>Piles, Fissure & Fistula</div></div>
-</div>
-</section>
+  <section id="services">
+    <h2>🏥 Services | हमारी सेवाएँ</h2>
+    <p class="section-intro">Services currently listed on the hospital portal.</p>
+    <div class="cards">
+      <div class="card"><h3>ICU</h3><div>Intensive Care Unit</div></div>
+      <div class="card"><h3>NICU</h3><div>Newborn Care</div></div>
+      <div class="card"><h3>Trauma Care</h3><div>Emergency &amp; Trauma Services</div></div>
+      <div class="card"><h3>CT Scan</h3><div>Advanced Imaging</div></div>
+      <div class="card"><h3>Digital X-Ray</h3><div>Digital Radiology</div></div>
+      <div class="card"><h3>Pathology</h3><div>Laboratory Services</div></div>
+      <div class="card"><h3>Laparoscopic Surgery</h3><div>Minimally Invasive Surgery</div></div>
+      <div class="card"><h3>Laser Treatment</h3><div>Piles, Fissure &amp; Fistula</div></div>
+    </div>
+  </section>
 
-<section id="doctors">
-<h2>👨‍⚕️ Our Doctors | हमारे डॉक्टर</h2>
-<div class="cards">
-<div class="card"><h3>Dr. Abul Kalam</h3><div>MBBS, D.Ortho<br>Orthopaedic Surgeon</div></div>
-<div class="card"><h3>Dr. (Prof.) Md. Tarique</h3><div>MBBS, MS, DNB(1), F.I.A.G.E.S.<br>General, Laparoscopic & Laser Surgeon</div></div>
-<div class="card"><h3>Dr. (Prof.) Hena Farooqui</h3><div>MBBS, MS<br>Obstetrician & Gynaecologist</div></div>
-</div>
-</section>
+  <section id="doctors">
+    <h2>👨‍⚕️ Our Doctors | हमारे डॉक्टर</h2>
+    <p class="section-intro">Doctor information currently listed on the portal.</p>
+    <div class="cards">
+      <div class="card doctor-card">
+        <div class="doctor-icon">👨‍⚕️</div>
+        <h3>Dr. Abul Kalam</h3>
+        <div>MBBS, D.Ortho<br>Orthopaedic Surgeon</div>
+      </div>
+      <div class="card doctor-card">
+        <div class="doctor-icon">👨‍⚕️</div>
+        <h3>Dr. (Prof.) Md. Tarique</h3>
+        <div>MBBS, MS, DNB(1), F.I.A.G.E.S.<br>General, Laparoscopic &amp; Laser Surgeon</div>
+      </div>
+      <div class="card doctor-card">
+        <div class="doctor-icon">👩‍⚕️</div>
+        <h3>Dr. (Prof.) Hena Farooqui</h3>
+        <div>MBBS, MS<br>Obstetrician &amp; Gynaecologist</div>
+      </div>
+    </div>
+  </section>
 
-<section id="appointment">
-<h2>📅 Book Appointment | अपॉइंटमेंट</h2>
-<form id="appointmentForm">
-<label>Patient Name / मरीज का नाम<input id="name" required placeholder="Enter patient name"></label>
-<label>Mobile Number / मोबाइल नंबर<input id="mobile" required type="tel" inputmode="numeric" placeholder="10 digit mobile number"></label>
-<label>Age / उम्र<input id="age" type="number" min="0" max="120" placeholder="Age"></label>
-<label>Gender / लिंग<select id="gender"><option>Male / पुरुष</option><option>Female / महिला</option><option>Other / अन्य</option></select></label>
-<label>Department / विभाग<select id="department">
-<option>General Medicine</option><option>Orthopaedics</option><option>General Surgery</option><option>Laparoscopic & Laser Surgery</option><option>Obstetrics & Gynaecology</option><option>Diagnostics / CT / X-Ray</option><option>Other</option>
-</select></label>
-<label>Doctor / डॉक्टर<select id="doctor">
-<option>Dr. Abul Kalam</option><option>Dr. (Prof.) Md. Tarique</option><option>Dr. (Prof.) Hena Farooqui</option><option>Any Available Doctor</option>
-</select></label>
-<label>Preferred Date / पसंदीदा तारीख<input id="date" type="date" required></label>
-<label>Preferred Time / पसंदीदा समय<input id="time" type="time"></label>
-<label>Problem / समस्या<textarea id="problem" placeholder="Briefly describe your problem"></textarea></label>
-<div class="notice">नोट: यह appointment request है। Final confirmation hospital/WhatsApp team द्वारा दी जाएगी.</div>
-<button class="submit" type="submit">📲 Send Appointment on WhatsApp</button>
-</form>
-</section>
+  <section id="appointment">
+    <h2>📅 Book Appointment | अपॉइंटमेंट</h2>
+    <p class="section-intro">Complete the form below. Your request will open in WhatsApp for confirmation.</p>
 
-<section id="qr">
-<h2>🔳 Hospital QR Code</h2>
-<div class="qrbox">
-<p><b>Scan this QR to open the Patient Portal</b><br>इस QR को scan करके portal खोलें</p>
-<img id="qrImage" alt="Hospital Portal QR Code">
-<br><a id="qrDownload" class="download" download="amna-memorial-hospital-qr.png">Download QR Code</a>
-<p class="small">QR currently points to the demo/local portal URL. After hosting, replace the URL in the code with your final website address and regenerate the QR.</p>
-</div>
-</section>
+    <form id="appointmentForm" novalidate>
+      <div class="form-grid">
+        <label>Patient Name / मरीज का नाम
+          <input id="name" required autocomplete="name" placeholder="Enter patient name">
+        </label>
+
+        <label>Mobile Number / मोबाइल नंबर
+          <input id="mobile" required type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="10 digit mobile number">
+        </label>
+
+        <label>Age / उम्र
+          <input id="age" type="number" min="0" max="120" inputmode="numeric" placeholder="Age">
+        </label>
+
+        <label>Gender / लिंग
+          <select id="gender">
+            <option>Male / पुरुष</option>
+            <option>Female / महिला</option>
+            <option>Other / अन्य</option>
+          </select>
+        </label>
+
+        <label>Department / विभाग
+          <select id="department">
+            <option>General Medicine</option>
+            <option>Orthopaedics</option>
+            <option>General Surgery</option>
+            <option>Laparoscopic &amp; Laser Surgery</option>
+            <option>Obstetrics &amp; Gynaecology</option>
+            <option>Diagnostics / CT / X-Ray</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <label>Doctor / डॉक्टर
+          <select id="doctor">
+            <option>Dr. Abul Kalam</option>
+            <option>Dr. (Prof.) Md. Tarique</option>
+            <option>Dr. (Prof.) Hena Farooqui</option>
+            <option>Any Available Doctor</option>
+          </select>
+        </label>
+
+        <label>Preferred Date / पसंदीदा तारीख
+          <input id="date" type="date" required>
+        </label>
+
+        <label>Preferred Time / पसंदीदा समय
+          <input id="time" type="time">
+        </label>
+
+        <label class="full">Problem / समस्या
+          <textarea id="problem" placeholder="Briefly describe your problem"></textarea>
+        </label>
+      </div>
+
+      <div class="notice">नोट: यह appointment request है। Final confirmation hospital/WhatsApp team द्वारा दी जाएगी.</div>
+      <button class="submit" type="submit">📲 Send Appointment on WhatsApp</button>
+    </form>
+  </section>
+
+  <section id="qr">
+    <h2>🔳 Hospital QR Code</h2>
+    <div class="qrbox">
+      <p><b>Scan this QR to open the Patient Portal</b><br>इस QR को scan करके portal खोलें</p>
+      <img id="qrImage" alt="Hospital Patient Portal QR Code" loading="lazy">
+      <br>
+      <a id="qrDownload" class="download" download="amna-memorial-hospital-qr.png">Download QR Code</a>
+      <p class="small">The QR code uses the current page address. After hosting the final website, it will automatically point to that hosted address.</p>
+    </div>
+  </section>
 </main>
 
 <footer>
-<b>Amna Memorial Hospital</b><br>
-Bangaon Road, Saharsa - 852201, Bihar<br>
-📲 WhatsApp: +91 80512 46461<br>
-© 2026 Amna Memorial Hospital
+  <div class="footer-title"><b>Amna Memorial Hospital</b></div>
+  <div>Bangaon Road, Saharsa - 852201, Bihar</div>
+  <div>📲 WhatsApp: +91 80512 46461</div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#appointment">Appointment</a>
+  </div>
+  <div style="margin-top:12px;opacity:.75">© 2026 Amna Memorial Hospital</div>
 </footer>
 
+<button class="back-top" id="backTop" type="button" aria-label="Back to top">↑</button>
+
 <script>
-const WHATSAPP="918051246461";
-const DEMO_URL=window.location.href;
-const qrImage=document.getElementById("qrImage");
-const qrDownload=document.getElementById("qrDownload");
+const WHATSAPP = "918051246461";
+const DEMO_URL = window.location.href;
+
+const qrImage = document.getElementById("qrImage");
+const qrDownload = document.getElementById("qrDownload");
+const dateInput = document.getElementById("date");
+const backTop = document.getElementById("backTop");
+
 function setQR(url){
-  const src="https://api.qrserver.com/v1/create-qr-code/?size=700x700&margin=12&data="+encodeURIComponent(url);
-  qrImage.src=src; qrDownload.href=src;
+  const src = "https://api.qrserver.com/v1/create-qr-code/?size=700x700&margin=12&data=" + encodeURIComponent(url);
+  qrImage.src = src;
+  qrDownload.href = src;
 }
+
 setQR(DEMO_URL);
 
-document.getElementById("appointmentForm").addEventListener("submit",function(e){
- e.preventDefault();
- const name=document.getElementById("name").value.trim();
- const mobile=document.getElementById("mobile").value.trim();
- const age=document.getElementById("age").value.trim();
- const gender=document.getElementById("gender").value;
- const department=document.getElementById("department").value;
- const doctor=document.getElementById("doctor").value;
- const date=document.getElementById("date").value;
- const time=document.getElementById("time").value;
- const problem=document.getElementById("problem").value.trim();
- if(!/^[0-9]{10}$/.test(mobile)){alert("Please enter a valid 10-digit mobile number.");return;}
- const msg=`*New Appointment Request*%0A%0A*Amna Memorial Hospital*%0A%0A*Patient:* ${name}%0A*Mobile:* ${mobile}%0A*Age:* ${age||"Not provided"}%0A*Gender:* ${gender}%0A*Department:* ${department}%0A*Doctor:* ${doctor}%0A*Date:* ${date}%0A*Time:* ${time||"Any time"}%0A*Problem:* ${problem||"Not provided"}%0A%0A_Please confirm my appointment._`;
- window.open("https://wa.me/"+WHATSAPP+"?text="+msg,"_blank");
+/* Prevent selecting a date in the past. */
+const today = new Date();
+const yyyy = today.getFullYear();
+const mm = String(today.getMonth() + 1).padStart(2, "0");
+const dd = String(today.getDate()).padStart(2, "0");
+dateInput.min = `${yyyy}-${mm}-${dd}`;
+
+/* Appointment form -> WhatsApp */
+document.getElementById("appointmentForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+  const age = document.getElementById("age").value.trim();
+  const gender = document.getElementById("gender").value;
+  const department = document.getElementById("department").value;
+  const doctor = document.getElementById("doctor").value;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+  const problem = document.getElementById("problem").value.trim();
+
+  if(!name){
+    alert("Please enter the patient's name.");
+    document.getElementById("name").focus();
+    return;
+  }
+
+  if(!/^[0-9]{10}$/.test(mobile)){
+    alert("Please enter a valid 10-digit mobile number.");
+    document.getElementById("mobile").focus();
+    return;
+  }
+
+  if(!date){
+    alert("Please select a preferred date.");
+    document.getElementById("date").focus();
+    return;
+  }
+
+  const message =
+`*New Appointment Request*
+
+*Amna Memorial Hospital*
+
+*Patient:* ${name}
+*Mobile:* ${mobile}
+*Age:* ${age || "Not provided"}
+*Gender:* ${gender}
+*Department:* ${department}
+*Doctor:* ${doctor}
+*Date:* ${date}
+*Time:* ${time || "Any time"}
+*Problem:* ${problem || "Not provided"}
+
+_Please confirm my appointment._`;
+
+  const url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message);
+  window.open(url, "_blank", "noopener");
+});
+
+/* Back-to-top button */
+window.addEventListener("scroll", () => {
+  backTop.classList.toggle("show", window.scrollY > 500);
+});
+
+backTop.addEventListener("click", () => {
+  window.scrollTo({top:0, behavior:"smooth"});
 });
 </script>
 </body>
