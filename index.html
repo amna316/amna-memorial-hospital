@@ -394,7 +394,24 @@ setQR(window.location.href);
 
 const now=new Date();
 dateInput.min=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+const departmentInput = document.getElementById("department");
+const doctorInput = document.getElementById("doctor");
 
+departmentInput.addEventListener("change", function() {
+  const dept = this.value;
+
+  if (dept === "General Medicine") {
+    doctorInput.selectedIndex = 1;
+  } else if (dept === "Orthopaedics") {
+    doctorInput.selectedIndex = 0;
+  } else if (dept === "General Surgery" || dept === "Laparoscopic & Laser Surgery") {
+    doctorInput.selectedIndex = 1;
+  } else if (dept === "Obstetrics & Gynaecology") {
+    doctorInput.selectedIndex = 2;
+  } else {
+    doctorInput.selectedIndex = 3;
+  }
+});
 document.getElementById("appointmentForm").addEventListener("submit",function(e){
   e.preventDefault();
   const name=document.getElementById("name").value.trim();
