@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://amna316.github.io/amna-memorial-hospital/sitemap.xml
+Sitemap: https://amnamemorialhospitalsaharsa.github.io/amna-memorial-hospital/sitemap.xml
